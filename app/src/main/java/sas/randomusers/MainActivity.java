@@ -1,9 +1,11 @@
 package sas.randomusers;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
         this.setDataBinding();
         setContentView(this.binding.getRoot());
 
-        this.binding.textTest.setText("Probando que el data binding este funkando como se debe");
-
-        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(5, "name,location,picture");
+        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(100, "name,location,picture");
         call.enqueue(new Callback<UsersResults>() {
             @Override
             public void onResponse(Call<UsersResults> call, Response<UsersResults> response) {
@@ -30,14 +30,15 @@ public class MainActivity extends AppCompatActivity {
                     UsersResults usersResults = response.body();
                     List<User> users = usersResults != null ? usersResults.getUsers() : null;
                     if (users != null) {
-                        StringBuilder stringBuilder = new StringBuilder();
+                        /*StringBuilder stringBuilder = new StringBuilder();
                         for (User user : users) {
                             stringBuilder.append(user.getName().getFirst())
                                     .append(" ").append(user.getName().getLast())
                                     .append(", ").append(user.getLocation().getCountry())
                                     .append("\n");
                         }
-                        binding.textTest.setText(stringBuilder);
+                        binding.textTest.setText(stringBuilder);*/
+                        setUsersRecyclerView((ArrayList<User>) users);
                     }
                 }
 
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
                 binding.textTest.setText("Fallo el pedo");
             }
         });
+    }
+
+    public void setUsersRecyclerView(ArrayList<User> users){
+        this.binding.usersResView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        this.binding.usersResView.setAdapter(new UsersRecyclerAdapter(users));
     }
 
 
