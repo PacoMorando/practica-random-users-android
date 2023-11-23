@@ -3,12 +3,14 @@ package sas.randomusers;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -37,11 +39,11 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView userThumbnail;
+        private final ImageView userThumbnail;
         private final TextView userFirstName;
         private final TextView userLastName;
         private final TextView userCountry;
-        private ImageButton userDeleteButton;
+        private Button userDeleteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +55,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
         }
 
         public void setUser(User user) {
+            Picasso.get().load(user.getPicture().getThumbnail()).into(this.userThumbnail);
             this.userFirstName.setText(user.getName().getFirst());
             this.userLastName.setText(user.getName().getLast());
             this.userCountry.setText(user.getLocation().getCountry());

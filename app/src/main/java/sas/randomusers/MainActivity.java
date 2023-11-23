@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UsersResults> call, Throwable t) {
-                binding.textTest.setText("Fallo el pedo");
+                System.out.println("Fallo el pedo");
             }
         });
     }
