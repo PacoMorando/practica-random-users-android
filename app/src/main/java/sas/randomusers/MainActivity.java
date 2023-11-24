@@ -15,6 +15,7 @@ import sas.randomusers.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+    private UsersRecyclerAdapter usersRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
         this.setDataBinding();
         setContentView(this.binding.getRoot());
 
-        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(100, "name,location,picture");
+        this.getUsers();
+    }
+
+    private void getUsers() {
+        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(7, "name,location,picture");
         call.enqueue(new Callback<UsersResults>() {
             @Override
             public void onResponse(Call<UsersResults> call, Response<UsersResults> response) {
@@ -41,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                         setUsersRecyclerView((ArrayList<User>) users);
                     }
                 }
-
             }
 
             @Override
@@ -51,9 +55,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void setUsersRecyclerView(ArrayList<User> users){
+    public void sortUsersByCountry() {
+        this.usersRecyclerAdapter.sortUsersByCountry();
+    }
+
+    public void sortUsersByFirstName() {
+        this.usersRecyclerAdapter.sortUsersByFirstName();
+    }
+
+    public void sortUsersByLastName() {
+        this.usersRecyclerAdapter.sortUsersByLastName();
+    }
+
+    public void resetUsers() {
+        this.usersRecyclerAdapter.resetUsers();
+    }
+
+    private void setUsersRecyclerView(ArrayList<User> users) {
+        this.usersRecyclerAdapter = new UsersRecyclerAdapter(users);
         this.binding.usersResView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        this.binding.usersResView.setAdapter(new UsersRecyclerAdapter(users));
+        this.binding.usersResView.setAdapter(this.usersRecyclerAdapter);
     }
 
 

@@ -26,10 +26,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="filter by country"/>
+                android:text="Random Users Technical Assessments"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,16 +48,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:text="sort by country"/>
+                    android:text="sort by country"
+                    android:onClick="@{()->main.sortUsersByCountry()}"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="reset"/>
-
-
-
+                    android:text="reset"
+                    android:onClick="@{()->main.resetUsers()}"/>
             </LinearLayout>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="filter by country"/>
         </LinearLayout>
 
         <LinearLayout
@@ -65,7 +71,6 @@
             android:layout_marginHorizontal="8dp"
             android:background="@color/black"
             android:orientation="horizontal"
-            android:paddingVertical="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_options">
@@ -84,30 +89,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
+                android:paddingVertical="12dp"
                 android:layout_weight="2"
                 android:textStyle="bold"
                 android:text="Nombre"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:onClick="@{()->main.sortUsersByFirstName()}"/>
 
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
+                android:paddingVertical="12dp"
                 android:layout_weight="2"
                 android:textStyle="bold"
                 android:text="Apellido"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:onClick="@{()->main.sortUsersByLastName()}"/>
 
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
+                android:paddingVertical="12dp"
                 android:layout_weight="2"
                 android:textStyle="bold"
                 android:text="País"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:onClick="@{()->main.sortUsersByCountry()}"/>
 
             <TextView
                 android:layout_width="0dp"

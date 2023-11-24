@@ -14,8 +14,20 @@ public class User {
         return name;
     }
 
+    public String getFirstName(){
+        return this.name.getFirst();
+    }
+
+    public String getLastName(){
+        return this.name.getLast();
+    }
+
     public Location getLocation() {
         return location;
+    }
+
+    public String getCountry(){
+        return this.location.getCountry();
     }
 
     public Picture getPicture() {
