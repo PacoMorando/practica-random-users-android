@@ -26,25 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(this.binding.getRoot());
 
         this.getUsers();
-
-        this.binding.filterByCountry.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.testTextListener.setText(charSequence);
-                //usersRecyclerAdapter.filterByCountry(charSequence);
-                usersRecyclerAdapter.setInputFilter(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        this.setFilterListener();
     }
 
     private void getUsers() {
@@ -68,9 +50,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void sortUsersByCountry() {
-        this.usersRecyclerAdapter.sortUsersByCountry();
-        this.setButtonText(this.usersRecyclerAdapter.getSortByCountryState());
+    private void setFilterListener() {
+        this.binding.filterByCountry.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                usersRecyclerAdapter.setInputFilter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
     }
 
     private void setButtonText(boolean sortByCountryState) {
@@ -79,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             this.binding.byCountryButton.setText(R.string.sort_country_button);
         }
+    }
+
+    public void sortUsersByCountry() {
+        this.usersRecyclerAdapter.sortUsersByCountry();
+        this.setButtonText(this.usersRecyclerAdapter.getSortByCountryState());
     }
 
     public void sortUsersByFirstName() {

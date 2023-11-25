@@ -109,9 +109,10 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
     }
 
     private void deleteUser(User user, int position) {
-        if (!(position < 0)) { //TODO HAY UN ERROR AL ELEMINAR USUARIOS MIENTRAS ESTA FILTRADO
+        if (!(position < 0)) {
             this.unsortedUsers.remove(user);
             this.sortedUsers.remove(user);
+            this.usersToShow.remove(user);
             notifyItemRemoved(position);
         }
     }
