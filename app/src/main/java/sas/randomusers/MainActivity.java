@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +26,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(this.binding.getRoot());
 
         this.getUsers();
+
+        this.binding.filterByCountry.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.testTextListener.setText(charSequence);
+                //usersRecyclerAdapter.filterByCountry(charSequence);
+                usersRecyclerAdapter.setInputFilter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void getUsers() {
-        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(7, "name,location,picture");
+        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(10, "name,location,picture");
         call.enqueue(new Callback<UsersResults>() {
             @Override
             public void onResponse(Call<UsersResults> call, Response<UsersResults> response) {
@@ -35,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
                     UsersResults usersResults = response.body();
                     List<User> users = usersResults != null ? usersResults.getUsers() : null;
                     if (users != null) {
-                        /*StringBuilder stringBuilder = new StringBuilder();
-                        for (User user : users) {
-                            stringBuilder.append(user.getName().getFirst())
-                                    .append(" ").append(user.getName().getLast())
-                                    .append(", ").append(user.getLocation().getCountry())
-                                    .append("\n");
-                        }
-                        binding.textTest.setText(stringBuilder);*/
                         setUsersRecyclerView((ArrayList<User>) users);
                     }
                 }
@@ -57,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void sortUsersByCountry() {
         this.usersRecyclerAdapter.sortUsersByCountry();
+        this.setButtonText(this.usersRecyclerAdapter.getSortByCountryState());
+    }
+
+    private void setButtonText(boolean sortByCountryState) {
+        if (sortByCountryState) {
+            this.binding.byCountryButton.setText(R.string.un_sort_country_button);
+        } else {
+            this.binding.byCountryButton.setText(R.string.sort_country_button);
+        }
     }
 
     public void sortUsersByFirstName() {

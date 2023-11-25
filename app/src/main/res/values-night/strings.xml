@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Random Users</string>
     <string name="un_sort_country_button">un sort</string>
     <string name="sort_country_button">sort by country</string>
 </resources>
