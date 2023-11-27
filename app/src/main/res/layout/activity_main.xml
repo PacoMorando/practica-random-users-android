@@ -51,7 +51,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1.5"
+                    android:layout_weight="1.7"
+                    android:singleLine="true"
                     android:text="sort by country"
                     android:onClick="@{()->main.sortUsersByCountry()}"/>
 
@@ -131,9 +132,9 @@
                 android:onClick="@{()->main.sortUsersByCountry()}"/>
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.2"
+                android:layout_marginHorizontal="10dp"
                 android:textStyle="bold"
                 android:text="Acc."
                 android:textColor="@color/white" />
@@ -143,8 +144,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/users_res_view"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="0dp"
             android:paddingHorizontal="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/users_head" />

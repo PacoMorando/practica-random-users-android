@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getUsers() {
-        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(10, "name,location,picture");
+        Call<UsersResults> call = UsersApiService.UsersApi.getInstance().getUsers(100, "name,location,picture");
         call.enqueue(new Callback<UsersResults>() {
             @Override
             public void onResponse(Call<UsersResults> call, Response<UsersResults> response) {
